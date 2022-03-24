@@ -1,0 +1,26 @@
+{
+  "name": "violet",
+  "version": "1.0.0",
+  "description": "mood tracking application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "seed": "cd server && npm run seed",
+    "build": "cd client && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jxhnkndl/violet.git"
+  },
+  "author": "jxhnkndl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jxhnkndl/violet/issues"
+  },
+  "homepage": "https://github.com/jxhnkndl/violet#readme",
+  "devDependencies": {
+    "concurrently": "^7.0.0"
+  }
+}
