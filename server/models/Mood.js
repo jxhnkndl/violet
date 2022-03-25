@@ -2,7 +2,12 @@ const { Schema, model } = require('mongoose');
 const convertToNumber = require('../utils/parseInt');
 
 const moodSchema = new Schema(
-  {
+  { 
+    date: {
+      type: Date,
+      default: Date.now,
+      required: true
+    },
     mood: {
       type: Number,
       required: true,
