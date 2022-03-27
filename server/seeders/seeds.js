@@ -7,10 +7,29 @@ db.once('open', async () => {
   await User.deleteMany({});
   await Mood.deleteMany({});
 
-  // number of users and moods per user to generate
+  // specify number of users and moods per user to generate
   const userCount = 5;
-  const moodCount = 10;
+  const moodCount = 90;
 
+  // generate users
+  const users = await createUsers(userCount);
+  console.log(`${userCount} users successfully created.`);
+
+  // loop through users and generate mood charts for each
+  for (let i = 0; i < users.length; i++) {
+    await createMoods(moodCount, users[i]);
+
+    console.log(
+      `${moodCount} mood charts created for ${users[i].firstName} ${users[i].lastName}`
+    );
+  }
+
+  // notify success and close db connection
+  console.log(`${userCount} users created with ${moodCount} moods logged each.`);
+  process.exit(0);
+});
+
+async function createUsers(userCount) {
   const createdUsers = [];
 
   // create and save new user to database
@@ -31,6 +50,17 @@ db.once('open', async () => {
     createdUsers.push(user);
   }
 
+  return createdUsers;
+}
+
+async function createMoods(moodCount, user) {
+  // set current date as starting point for generating daily mood charts
+  let currentDate = dayjs('2022-03-25 00:00:00');
+  
+  // generate random number of symptoms to add to each mood chart
+  const symptomCount = Math.floor(Math.random() * 6);
+
+  // complete symptom array
   const symptoms = [
     'Racing Thoughts',
     'Intrusive Thoughts',
@@ -48,55 +78,38 @@ db.once('open', async () => {
     'Poor Motivation',
   ];
 
-  // loop through users and create mood charts for each
-  for (let i = 0; i < createdUsers.length; i++) {
+  // generate mood charts
+  for (let j = 0; j <= moodCount; j++) {
+    // set to previous date
+    currentDate = dayjs(currentDate).subtract(1, 'day');
 
-    // set current date to use when generating mood charts
-    let currentDate = dayjs();
+    // shuffle symptoms array
+    const shuffledSymptoms = symptoms.sort((a, b) => 0.5 - Math.random());
+    const currentSymptoms = [];
 
-    // create array of sequential dates
-    for (let j = 0; j <= moodCount; j++) {
-      // reset current date to previous date
-      currentDate = dayjs(currentDate).subtract(1, 'day');
-
-      const currentSymptoms = [];
-
-      // shuffle symptoms array and generate random number of symptoms to log
-      const randomSymptoms = symptoms.sort((a, b) => 0.5 - Math.random());
-      const numOfSymptoms = Math.floor(Math.random() * 6);
-
-      // push random number of symptoms in current symptoms array
-      for (let k = 0; k <= numOfSymptoms; k++) {
-        currentSymptoms.push(randomSymptoms[k]);
-      }
-
-      // create and save individual mood chart to database
-      const moodData = {
-        date: currentDate,
-        mood: faker.datatype.number({ min: 1, max: 5 }),
-        anxiety: faker.datatype.number({ min: 0, max: 3 }),
-        insomnia: faker.datatype.number({ min: 0, max: 3 }),
-        symptoms: currentSymptoms,
-        accomplishments: faker.lorem.sentences(Math.floor(Math.random() * 4)),
-        notes: faker.lorem.sentences(Math.floor(Math.random() * 4)),
-      };
-
-      const createdMood = await Mood.create(moodData);
-
-      // attach mood to current user
-      await User.findByIdAndUpdate(
-        { _id: createdUsers[i]._id },
-        { $push: { moods: createdMood._id } },
-        { new: true }
-      );
+    // push random number of symptoms into chart's symptoms array
+    for (let k = 0; k <= symptomCount; k++) {
+      currentSymptoms.push(shuffledSymptoms[k]);
     }
 
-    console.log(
-      `${moodCount} created for ${createdUsers[i].firstName} ${createdUsers[i].lastName}`
+    // create and save individual mood chart to database
+    const moodData = {
+      date: currentDate,
+      mood: faker.datatype.number({ min: 1, max: 5 }),
+      anxiety: faker.datatype.number({ min: 0, max: 3 }),
+      insomnia: faker.datatype.number({ min: 0, max: 3 }),
+      symptoms: currentSymptoms,
+      accomplishments: faker.lorem.sentences(Math.floor(Math.random() * 4)),
+      notes: faker.lorem.sentences(Math.floor(Math.random() * 4)),
+    };
+
+    const createdMood = await Mood.create(moodData);
+
+    // attach mood to current user
+    await User.findByIdAndUpdate(
+      { _id: user._id },
+      { $push: { moods: createdMood._id } },
+      { new: true }
     );
   }
-
-  console.log(`${userCount} users with ${moodCount} moods logged each.`);
-
-  process.exit(0);
-});
+}
