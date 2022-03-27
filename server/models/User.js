@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const dayjs = require('dayjs');
 const bcrypt = require('bcrypt');
 
 const userSchema = new Schema(
@@ -21,7 +22,8 @@ const userSchema = new Schema(
     },
     birthday: {
       type: Date,
-      required: true
+      required: true,
+      get: birthday => dayjs(birthday).format('MM/DD/YYYY')
     },
     password: {
       type: String,
@@ -42,7 +44,8 @@ const userSchema = new Schema(
   },
   {
     toJSON: {
-      virtuals: true
+      virtuals: true,
+      getters: true
     }
   }
 );
