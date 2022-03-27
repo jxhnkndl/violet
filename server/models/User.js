@@ -33,10 +33,6 @@ const userSchema = new Schema(
     avatar: {
       type: String
     },
-    doctor: {
-      type: Schema.Types.ObjectId,
-      ref: 'User'
-    },
     moods: [
       {
         type: Schema.Types.ObjectId,
