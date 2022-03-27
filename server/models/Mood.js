@@ -1,12 +1,13 @@
 const { Schema, model } = require('mongoose');
-const convertToNumber = require('../utils/parseInt');
+const dayjs = require('dayjs');
 
 const moodSchema = new Schema(
   { 
     date: {
       type: Date,
       default: Date.now,
-      required: true
+      required: true,
+      get: date => dayjs(date).format('MM/DD/YYYY')
     },
     mood: {
       type: Number,
