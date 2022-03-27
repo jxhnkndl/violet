@@ -23,9 +23,9 @@ const moodSchema = new Schema(
       required: true,
       get: insomniaRating => convertToNumber(insomniaRating)
     },
-    symptoms: {
+    symptoms: [{
       type: String
-    },
+    }],
     accomplishments: {
       type: String
     },
