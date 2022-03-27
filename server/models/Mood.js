@@ -11,17 +11,22 @@ const moodSchema = new Schema(
     mood: {
       type: Number,
       required: true,
-      get: moodRating => convertToNumber(moodRating)
+      get: moodRating => parseInt(moodRating)
     },
     anxiety: {
       type: Number,
       required: true,
-      get: anxietyRating => convertToNumber(anxietyRating)
+      get: anxietyRating => parseInt(anxietyRating)
     },
     insomnia: {
       type: Number,
       required: true,
-      get: insomniaRating => convertToNumber(insomniaRating)
+      get: insomniaRating => parseInt(insomniaRating)
+    },
+    panicAttacks: {
+      type: Number,
+      default: 0,
+      get: attacks => parseInt(attacks)
     },
     symptoms: [{
       type: String

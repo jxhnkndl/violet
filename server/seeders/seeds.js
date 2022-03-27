@@ -98,6 +98,7 @@ async function createMoods(moodCount, user) {
       mood: faker.datatype.number({ min: 1, max: 5 }),
       anxiety: faker.datatype.number({ min: 0, max: 3 }),
       insomnia: faker.datatype.number({ min: 0, max: 3 }),
+      panicAttacks: Math.floor(Math.random() * 3),
       symptoms: currentSymptoms,
       accomplishments: faker.lorem.sentences(Math.floor(Math.random() * 4)),
       notes: faker.lorem.sentences(Math.floor(Math.random() * 4)),
