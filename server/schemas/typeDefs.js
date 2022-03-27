@@ -23,6 +23,10 @@ const typeDefs = gql`
     accomplishments: String
     notes: String
   }
+
+  type Query {
+    users: [User]
+  }
 `;
 
 module.exports = typeDefs;
