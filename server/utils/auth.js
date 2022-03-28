@@ -1,5 +1,9 @@
 const jwt = require('jsonwebtoken');
 
+// make environmental variables readable
+require('dotenv').config();
+
+// token settings
 const expiresIn = '2h';
 const secret = process.env.JWT_SECRET;
 
@@ -12,7 +16,7 @@ module.exports = {
   },
 
   // check for and verify auth tokens sent from client
-  authMiddleware: function ([req]) {
+  authMiddleware: function ({ req }) {
     // capture token from authorization header
     let token = req.headers.authorization;
 
