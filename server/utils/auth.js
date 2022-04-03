@@ -4,15 +4,14 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 // token settings
-const expiresIn = '2h';
-const secret = process.env.JWT_SECRET;
+const expiration = '2h';
 
 module.exports = {
   // sign new auth tokens on user login or creation of new user
   signToken: function ({ _id, email }) {
     const payload = { _id, email };
 
-    return jwt.sign({ data: payload }, secret, { expiresIn });
+    return jwt.sign({ data: payload }, process.env.JWT_SECRET, { expiresIn: expiration });
   },
 
   // check for and verify auth tokens sent from client
@@ -21,7 +20,7 @@ module.exports = {
     let token = req.headers.authorization;
 
     // extract token value from header string
-    if (token) {
+    if (req.headers.authorization) {
       token = token.split(' ').pop().trim();
     }
 
@@ -32,11 +31,14 @@ module.exports = {
 
     // verify token signature and attach user id and email to req object
     try {
-      const { data } = jwt.verify(token, secret, { maxAge: expiresIn });
+      const { data } = jwt.verify(token, process.env.JWT_SECRET, { maxAge: expiration });
       req.user = data;
     } catch (err) {
       console.error(err);
       console.log('Invalid token.');
     }
+
+    // return the update req object
+    return req;
   },
 };
