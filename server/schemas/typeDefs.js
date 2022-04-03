@@ -43,6 +43,14 @@ const typeDefs = gql`
       birthday: String!
       password: String!
     ): Auth
+    updateUser(
+      firstName: String
+      lastName: String
+      email: String
+      birthday: String
+      password: String
+      avatar: String
+    ): User
   }
 `;
 
