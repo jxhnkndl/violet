@@ -51,6 +51,7 @@ const typeDefs = gql`
       password: String
       avatar: String
     ): User
+    deleteUser: User
   }
 `;
 

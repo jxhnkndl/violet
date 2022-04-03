@@ -62,6 +62,19 @@ const resolvers = {
       }
 
       throw new AuthenticationError('User not logged in.');
+    },
+    deleteUser: async (parent, args, context) => {
+      // check to verify user is logged in
+      if (context.user) {
+        const id = context.user._id;
+        const user = await User.findByIdAndDelete(id);
+
+        console.log(user);
+
+        return user;
+      }
+
+      throw new AuthenticationError('User not logged in.');
     }
   },
 };
