@@ -106,6 +106,17 @@ const resolvers = {
       }
 
       throw new AuthenticationError('User not logged in.');
+    },
+
+    deleteMood: async (parent, { _id }, context) => {
+      // check to verify user is logged in
+      if (context.user) {
+        const mood = await Mood.findByIdAndDelete(_id);
+
+        return mood;
+      }
+
+      throw new AuthenticationError('User not logged in.');
     }
   },
 };

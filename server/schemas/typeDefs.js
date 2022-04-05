@@ -55,7 +55,7 @@ const typeDefs = gql`
     ): User
 
     deleteUser: User
-    
+
     addMood(
       mood: String!
       anxiety: String!
@@ -65,6 +65,8 @@ const typeDefs = gql`
       accomplishments: String
       notes: String
     ): Mood
+
+    deleteMood(_id: ID): Mood
   }
 `;
 
