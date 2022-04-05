@@ -18,6 +18,10 @@ const resolvers = {
       throw new AuthenticationError('User not logged in.');
     },
 
+    user: async (parents, { email }) => {
+      return User.findOne({ email });
+    },
+
     users: async () => {
       return User.find().select('-__v -password').populate('moods');
     },
