@@ -18,7 +18,7 @@ const resolvers = {
       throw new AuthenticationError('User not logged in.');
     },
 
-    user: async (parents, { email }) => {
+    user: async (parent, { email }) => {
       return User.findOne({ email });
     },
 
