@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   return (
     <Row>
-      <Col lg={8} className="column">
+      <Col lg={10} xl={8} className="column">
         <Headline headline="Let's see how you're doing" />
 
         {/* verify api has returned mood data */}
