@@ -1,6 +1,8 @@
 import React, { useEffect, useContext } from 'react';
 import MoodContext from '../context/mood/moodContext';
 
+import Headline from '../components/Headline';
+import MoodListItem from '../components/MoodListItem';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -16,8 +18,21 @@ const Dashboard = () => {
   return (
     <Row>
       <Col lg={8} className="column">
-        <p className="greeting">Today is May 8, 2022</p>
-        <h2>Let's see how you're doing</h2>
+        <Headline headline="Let's see how you're doing" />
+
+        {/* verify api has returned mood data */}
+        {moods.length ? (
+
+          // loop through user's moods
+          // create a mood list item with key details for each entry
+          <div id="mood-stream">
+            {moods.map(mood => <MoodListItem key={mood._id} data={mood} />)}
+          </div>
+          
+        ) : (
+          <p>Loading...</p>
+        )}
+
       </Col>
     </Row>
   );
