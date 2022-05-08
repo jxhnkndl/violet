@@ -1,14 +1,18 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Dashboard from './pages/Dashboard';
 import MoodState from './context/mood/MoodState';
 
 function App() {
   return (
     <MoodState>
-      <div className="App">
-        <header className="App-header">
-          <h1>VIOLET</h1>
-        </header>
-      </div>
+      <Router>
+        <div className="app">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+          </Routes>
+        </div>
+      </Router>
     </MoodState>
   );
 }
