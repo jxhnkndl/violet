@@ -29,6 +29,7 @@ h6 {
 p {
   font-family: $font-stack-body;
   color: $base-light;
+  margin-bottom: 8px;
 }
 
 // grid + layout
@@ -69,7 +70,7 @@ p {
 
     .mood-details {
       .mood-date {
-        margin-bottom: 8px;
+        margin-bottom: 4px;
       }
 
       .mood-rating {
