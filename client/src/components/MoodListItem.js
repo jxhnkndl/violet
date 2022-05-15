@@ -19,22 +19,42 @@ const MoodListItem = ({ data }) => {
   }
 
   // get mood icon from mood rating
-  const getMoodIcon = () => {
+  const getMoodDetails = () => {
     switch (mood) {
       case 5:
-        return IconPinkChevUp;
+        return {
+          icon: IconPinkChevUp,
+          alt: 'Mood indicator showing a manic mood rating',
+          rating: 'Manic'
+        };
         break;
       case 4:
-        return IconYellowChevUp;
+        return {
+          icon: IconYellowChevUp,
+          alt: 'Mood indicator showing a hypomanic mood rating',
+          rating: 'Hypomanic'
+        };
         break;
       case 3:
-        return IconStable;
+        return {
+          icon: IconStable,
+          alt: 'Mood indicator showing a stable mood rating',
+          rating: 'Stable'
+        };
         break;
       case 2:
-        return IconYellowChevDown;
+        return {
+          icon: IconYellowChevDown,
+          alt: 'Mood indicator showing a low mood rating',
+          rating: 'Low'
+        };
         break;
       case 1:
-        return IconPinkChevDown;
+        return {
+          icon: IconPinkChevDown,
+          alt: 'Mood indicator showing a depressed mood rating',
+          rating: 'Depressed'
+        };
         break;     
       default:
         return IconStable;
@@ -42,15 +62,18 @@ const MoodListItem = ({ data }) => {
     }
   }
 
+  // generate mood icon and heading based on mood rating
+  const moodDetails = getMoodDetails();
+
   return (
     <div className="mood-list-item">
       <div className="mood-data">
         <div className="mood-icon">
-          <img src={getMoodIcon()} className="mood-list-icon" alt="" />
+          <img src={moodDetails.icon} className="mood-list-icon" alt={moodDetails.alt} />
         </div>
         <div className="mood-details">
           <p className="mood-date">{getDate()}</p>
-          <p className="mood-rating">Test</p>
+          <p className="mood-rating">{moodDetails.rating}</p>
         </div>
       </div>
       <div className="info-icon">
