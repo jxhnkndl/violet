@@ -9,6 +9,11 @@ import IconStable from '../assets/icons/icon-equals.svg';
 const MoodListItem = ({ data }) => {
   const { _id, date, mood } = data;
 
+  // format mood chart date for display
+  const getDate = () => {
+    return dayjs(date).format('MMMM D, YYYY');
+  }
+
   return (
     <div className="mood-list-item">
       <div className="mood-data">
@@ -16,7 +21,7 @@ const MoodListItem = ({ data }) => {
           <img src={IconStable} className="mood-list-icon" alt="" />
         </div>
         <div className="mood-details">
-          <p className="mood-date">{dayjs(date).format('MMMM D, YYYY')}</p>
+          <p className="mood-date">{getDate()}</p>
           <p className="mood-rating">Test</p>
         </div>
       </div>
