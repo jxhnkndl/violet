@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 
 import Row from 'react-bootstrap/Row';
@@ -16,7 +17,7 @@ const MoodListItem = ({ data }) => {
   // format mood chart date for display
   const getDate = () => {
     return dayjs(date).format('MMMM D, YYYY');
-  }
+  };
 
   // get mood icon from mood rating
   const getMoodDetails = () => {
@@ -25,42 +26,42 @@ const MoodListItem = ({ data }) => {
         return {
           icon: IconPinkChevUp,
           alt: 'Mood indicator showing a manic mood rating',
-          rating: 'Manic'
+          rating: 'Manic',
         };
         break;
       case 4:
         return {
           icon: IconYellowChevUp,
           alt: 'Mood indicator showing a hypomanic mood rating',
-          rating: 'Hypomanic'
+          rating: 'Hypomanic',
         };
         break;
       case 3:
         return {
           icon: IconStable,
           alt: 'Mood indicator showing a stable mood rating',
-          rating: 'Stable'
+          rating: 'Stable',
         };
         break;
       case 2:
         return {
           icon: IconYellowChevDown,
           alt: 'Mood indicator showing a low mood rating',
-          rating: 'Low'
+          rating: 'Low',
         };
         break;
       case 1:
         return {
           icon: IconPinkChevDown,
           alt: 'Mood indicator showing a depressed mood rating',
-          rating: 'Depressed'
+          rating: 'Depressed',
         };
-        break;     
+        break;
       default:
         return IconStable;
         break;
     }
-  }
+  };
 
   // generate mood icon and heading based on mood rating
   const moodDetails = getMoodDetails();
@@ -69,7 +70,11 @@ const MoodListItem = ({ data }) => {
     <div className="mood-list-item">
       <div className="mood-data">
         <div className="mood-icon">
-          <img src={moodDetails.icon} className="mood-list-icon" alt={moodDetails.alt} />
+          <img
+            src={moodDetails.icon}
+            className="mood-list-icon"
+            alt={moodDetails.alt}
+          />
         </div>
         <div className="mood-details">
           <p className="mood-date">{getDate()}</p>
@@ -77,7 +82,9 @@ const MoodListItem = ({ data }) => {
         </div>
       </div>
       <div className="info-icon">
-        <img src={IconInfo} className="mood-list-info" alt="" />
+        <Link to={`/${_id}`}>
+          <img src={IconInfo} className="mood-list-info" alt="" />
+        </Link>
       </div>
     </div>
   );
