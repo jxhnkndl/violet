@@ -4,6 +4,7 @@ import MoodState from './context/mood/MoodState';
 
 import Container from 'react-bootstrap/Container';
 import Dashboard from './pages/Dashboard';
+import SingleMood from './pages/SingleMood';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Container>
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/:moodId" element={<SingleMood />} />
             </Routes>
           </Container>
         </div>
