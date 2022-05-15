@@ -5,6 +5,10 @@ import Row from 'react-bootstrap/Row';
 
 import IconInfo from '../assets/icons/icon-info.svg';
 import IconStable from '../assets/icons/icon-equals.svg';
+import IconYellowChevUp from '../assets/icons/icon-yellow-chev-up.svg';
+import IconYellowChevDown from '../assets/icons/icon-yellow-chev-down.svg';
+import IconPinkChevUp from '../assets/icons/icon-pink-chev-up.svg';
+import IconPinkChevDown from '../assets/icons/icon-pink-chev-down.svg';
 
 const MoodListItem = ({ data }) => {
   const { _id, date, mood } = data;
@@ -14,11 +18,35 @@ const MoodListItem = ({ data }) => {
     return dayjs(date).format('MMMM D, YYYY');
   }
 
+  // get mood icon from mood rating
+  const getMoodIcon = () => {
+    switch (mood) {
+      case 5:
+        return IconPinkChevUp;
+        break;
+      case 4:
+        return IconYellowChevUp;
+        break;
+      case 3:
+        return IconStable;
+        break;
+      case 2:
+        return IconYellowChevDown;
+        break;
+      case 1:
+        return IconPinkChevDown;
+        break;     
+      default:
+        return IconStable;
+        break;
+    }
+  }
+
   return (
     <div className="mood-list-item">
       <div className="mood-data">
         <div className="mood-icon">
-          <img src={IconStable} className="mood-list-icon" alt="" />
+          <img src={getMoodIcon()} className="mood-list-icon" alt="" />
         </div>
         <div className="mood-details">
           <p className="mood-date">{getDate()}</p>
